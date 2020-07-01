@@ -1,0 +1,20 @@
+{
+  "name": "hot-takes-server",
+  "version": "0.0.1",
+  "description": "The server to run the Hot Takes website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u001b[2~\u001b[2~\u001b[2~\u001b[2~https://github.com/derpyasianpanda/hot-takes.git"
+  },
+  "author": "KV Le",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20",
+    "passport": "^0.4.1"
+  }
+}
