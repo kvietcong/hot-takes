@@ -19,10 +19,10 @@ app.use(express.json());
 
 // Session Middleware
 app.use(session({
-  secret: "test",
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 // Passport middleware
