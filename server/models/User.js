@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    accountType: {
+    twitterID: {
         type: String,
         required: true
     },
-    username: {
+    twitterHandle: {
         type: String,
         required: true
     },
-    accountIdentifier: {
-        type: String
-    },
-    password: {
-        type: String
+    displayName: {
+        type: String,
+        required: true
     },
     firstName: {
         type: String
@@ -21,7 +19,10 @@ const UserSchema = new mongoose.Schema({
     lastName: {
         type: String
     },
-    image: {
+    profileImage: {
+        type: String
+    },
+    biography: {
         type: String
     },
     createdAt: {

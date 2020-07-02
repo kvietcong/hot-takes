@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema({
+const TakeSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -11,8 +11,7 @@ const PostSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
-        required: true
+        type: String
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -24,4 +23,4 @@ const PostSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Take", TakeSchema);
