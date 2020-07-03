@@ -2,19 +2,20 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Routes/Home";
 import Error from "./Routes/Error"
-import Test from "./Routes/Test";
+import Profile from "./Routes/Profile";
+import HomeButton from "./Components/HomeButton";
 
 function App() {
   return (
     <Router>
-        <main className="App">
-            <h1>Hot Takes</h1>
+        <HomeButton />
+        <main className="App container">
             <Switch>
                 <Route exact path="/">
                     <Home />
                 </Route>
-                <Route exact path="/test">
-                    <Test />
+                <Route exact path="/profile">
+                    <Profile />
                 </Route>
                 <Route exact path="/error">
                     <Error />

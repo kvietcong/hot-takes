@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const { ensureAuth, ensureGuest } = require("./custom-middleware/checkAuth");
+const { ensureAuth } = require("./custom-middleware/checkAuth");
 
 // Configuration
 dotenv.config({ path: "./config/config.env" });
@@ -14,7 +14,7 @@ require("./config/db")();
 require("./config/passport")(passport)
 
 const app = express();
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 // Request Body Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -33,7 +33,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.get("/test", (req, res) => {console.log("test"); res.redirect(`${process.env.CLIENT_URL}/test`)});
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/takes", require("./routes/takes"));
 app.use("/api/users", require("./routes/users"));

@@ -1,5 +1,5 @@
 const express = require("express");
-const { ensureAuth, ensureGuest } = require("../custom-middleware/checkAuth");
+const { ensureAuth } = require("../custom-middleware/checkAuth");
 const passport = require("passport");
 const router = express.Router();
 const User = require("../models/User");

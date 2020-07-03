@@ -1,24 +1,42 @@
 import React from "react"
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const Home = () => {
     const handleClick = async () => {
-        console.log("hi")
         window.location = "http://localhost:8000/api/auth/twitter";
     };
 
+    const history = useHistory();
+
     return (
-        <>
-            <h1>Welcome to Hot Takes</h1>
+        <main className="text-center">
+            <h1 className="display-1">Welcome to Hot Takes</h1>
             <div onClick={handleClick} className="btn btn-primary">Enter with Twitter</div>
-            <div onClick={() => window.location = "http://localhost:8000/test"} className="btn btn-primary">Testr</div>
+            <div onClick={() => history.push("profile")} className="btn btn-primary">Go to profile</div>
+            <div
+                onClick={async () =>
+                    console.log(await
+                        (await fetch("http://localhost:8000/api/users/me", { credentials: "include" }))
+                        .json()
+                    )
+                }
+                className="btn btn-primary"
+            >
+                Print User
+            </div>
             <div
                 onClick={async () => {
-                    console.log(await (await fetch("http://localhost:8000/api/users/me", {credentials: "include"})).json())
+                    console.log(
+                        await
+                        (await fetch("http://localhost:8000/api/auth/logout", { credentials: "include" }))
+                        .json()
+                    )
                 }}
-                className="btn btn-primary">Print User
+                className="btn btn-primary"
+            >
+                Logout
             </div>
-        </>
+        </main>
     );
 };
 

@@ -6,14 +6,14 @@ router.get("/twitter", passport.authenticate("twitter"));
 
 router.get("/twitter/callback",
     passport.authenticate("twitter", {
-        successRedirect: `${process.env.CLIENT_URL}/`,
+        successRedirect: `${process.env.CLIENT_URL}/profile`,
         failureRedirect: `${process.env.CLIENT_URL}/error`
     })
 );
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect(`${process.env.CLIENT_URL}/`);
+  res.json({ status: "Successfully logged out" });
 });
 
 module.exports = router;

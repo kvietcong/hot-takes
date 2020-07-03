@@ -6,7 +6,7 @@ module.exports = passport => {
     passport.use(new TwitterStrategy({
             consumerKey: process.env.TWITTER_CONSUMER_KEY,
             consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-            callbackURL: "http://localhost:8000/api/auth/twitter/callback"
+            callbackURL: "/api/auth/twitter/callback"
         },
         async (token, tokenSecret, profile, done) => {
             const { id, name, description, profile_image_url: profileImage, screen_name: handle } =
