@@ -14,7 +14,7 @@ require("./config/db")();
 require("./config/passport")(passport)
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Request Body Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -33,15 +33,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.get("/test", ensureAuth, (req, res) => {console.log(req.user, req.user.id); res.redirect("/secret.html");})
-app.get("/api/auth/twitter", passport.authenticate("twitter"));
-
-app.get("/api/auth/twitter/callback",
-    passport.authenticate("twitter", { successRedirect: "/", failureRedirect: "/fail.html" })
-);
+app.get("/test", (req, res) => {console.log("test"); res.redirect(`${process.env.CLIENT_URL}/test`)});
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/takes", require("./routes/takes"));
+app.use("/api/users", require("./routes/users"));
 
 const PORT = process.env.PORT || 8000;
-
-app.use(express.static("./test"));
 
 app.listen(PORT, console.log(`Server running on port ${PORT}`));
