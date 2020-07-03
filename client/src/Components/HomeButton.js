@@ -1,11 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 
 const HomeButton = () => {
+    const history = useHistory();
+
     return (
-        <Link to="/">
-            <div className="m-3 btn btn-primary fixed-position">Home</div>
-        </Link>
+        <div
+            onClick={() => history.push("/")}
+            className="m-3 btn btn-primary position-fixed"
+            style={{ width: "10%" }}
+        >
+                Home
+        </div>
     );
 };
 

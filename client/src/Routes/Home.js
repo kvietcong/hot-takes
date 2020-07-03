@@ -1,41 +1,25 @@
-import React from "react"
-import { Redirect, useHistory } from "react-router-dom";
+import React, { useContext } from "react"
+import { useHistory } from "react-router-dom";
+import { Context } from "../Context";
 
 const Home = () => {
-    const handleClick = async () => {
-        window.location = "http://localhost:8000/api/auth/twitter";
-    };
+    const { profile } = useContext(Context);
 
     const history = useHistory();
 
     return (
         <main className="text-center">
             <h1 className="display-1">Welcome to Hot Takes</h1>
-            <div onClick={handleClick} className="btn btn-primary">Enter with Twitter</div>
-            <div onClick={() => history.push("profile")} className="btn btn-primary">Go to profile</div>
+            {profile ?
+            <div onClick={() => history.push("profile")} className="btn btn-primary">
+                Go to profile
+            </div> :
             <div
-                onClick={async () =>
-                    console.log(await
-                        (await fetch("http://localhost:8000/api/users/me", { credentials: "include" }))
-                        .json()
-                    )
-                }
+                onClick={() => window.location = "http://localhost:8000/api/auth/twitter"}
                 className="btn btn-primary"
             >
-                Print User
-            </div>
-            <div
-                onClick={async () => {
-                    console.log(
-                        await
-                        (await fetch("http://localhost:8000/api/auth/logout", { credentials: "include" }))
-                        .json()
-                    )
-                }}
-                className="btn btn-primary"
-            >
-                Logout
-            </div>
+                Enter with Twtter
+            </div>}
         </main>
     );
 };

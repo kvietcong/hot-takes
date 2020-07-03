@@ -14,16 +14,20 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     firstName: {
-        type: String
+        type: String,
+        default: ""
     },
     lastName: {
-        type: String
+        type: String,
+        default: ""
     },
     profileImage: {
-        type: String
+        type: String,
+        default: ""
     },
     biography: {
-        type: String
+        type: String,
+        default: ""
     },
     createdAt: {
         type: Date,

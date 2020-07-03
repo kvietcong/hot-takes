@@ -4,26 +4,31 @@ import Home from "./Routes/Home";
 import Error from "./Routes/Error"
 import Profile from "./Routes/Profile";
 import HomeButton from "./Components/HomeButton";
+import LogoutButton from "./Components/LogoutButton";
+import ContextProvider from "./Context";
 
 function App() {
-  return (
-    <Router>
-        <HomeButton />
-        <main className="App container">
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <Route exact path="/profile">
-                    <Profile />
-                </Route>
-                <Route exact path="/error">
-                    <Error />
-                </Route>
-            </Switch>
-        </main>
-    </Router>
-  );
+    return (
+        <ContextProvider>
+            <Router>
+                <HomeButton />
+                <LogoutButton />
+                <main className="App container">
+                    <Switch>
+                        <Route exact path="/">
+                            <Home />
+                        </Route>
+                        <Route exact path="/profile">
+                            <Profile />
+                        </Route>
+                        <Route exact path="/error">
+                            <Error />
+                        </Route>
+                    </Switch>
+                </main>
+            </Router>
+        </ContextProvider>
+    );
 };
 
 export default App;
