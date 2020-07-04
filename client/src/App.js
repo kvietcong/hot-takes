@@ -3,17 +3,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Routes/Home";
 import Error from "./Routes/Error"
 import Profile from "./Routes/Profile";
-import HomeButton from "./Components/HomeButton";
-import LogoutButton from "./Components/LogoutButton";
 import ContextProvider from "./Context";
+import Navbar from "./Components/Navbar";
 
 function App() {
     return (
         <ContextProvider>
             <Router>
-                <HomeButton />
-                <LogoutButton />
-                <main className="App container">
+                <Navbar />
+                <main className="container-md">
                     <Switch>
                         <Route exact path="/">
                             <Home />

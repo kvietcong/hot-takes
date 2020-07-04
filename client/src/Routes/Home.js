@@ -9,7 +9,7 @@ const Home = () => {
 
     return (
         <main className="text-center">
-            <h1 className="display-1">Welcome to Hot Takes</h1>
+            <h1 className="display-1 mt-5">Welcome to Hot Takes</h1>
             {profile ?
             <div onClick={() => history.push("profile")} className="btn btn-primary">
                 Go to profile

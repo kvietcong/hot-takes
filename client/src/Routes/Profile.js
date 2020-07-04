@@ -7,7 +7,9 @@ const Profile = () => {
     const { profile } = useContext(Context);
 
     return (
-        profile ? <Info profile={profile} /> : <Redirect to="/" />
+        profile ?
+        <Info profile={profile} /> :
+        <h2 className="mt-5 display-2 text-center">You are currently a guest</h2>
     );
 };
 
