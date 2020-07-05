@@ -15,9 +15,13 @@ router.get("/twitter/callback",
 
 // Logs the current user out
 router.get("/logout", (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.json({ status: "Successfully logged out" });
+    try {
+        req.logout();
+        req.session.destroy();
+        res.json({ status: "Successfully logged out" });
+    } catch (error) {
+        res.status(500).json({ status: "Server error in logging out" });
+    }
 });
 
 module.exports = router;

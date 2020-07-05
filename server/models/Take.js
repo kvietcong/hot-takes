@@ -10,8 +10,8 @@ const TakeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
-        type: String,
+    categories: {
+        type: Array,
         default: []
     },
     likes: {
@@ -22,7 +22,7 @@ const TakeSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    user: {
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
