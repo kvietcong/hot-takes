@@ -3,6 +3,20 @@ const { ensureAuth } = require("../custom-middleware/checkAuth");
 const router = express.Router();
 const Take = require("../models/Take");
 
+// Retrieves all the takes
+router.get("/", async (req, res) => {
+    try {
+        const takes = await Take.find();
+        res.json({
+            status: "Successfully retrieved Takes",
+            takes: takes
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
 // Creates a new take
 router.post("/", async (req, res) => {
     try {
