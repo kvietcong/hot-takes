@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, NavLink } from "react-router-dom";
 import { Context } from "../Context";
 
-const Navbar = () => {
+const Navbar = ({ selected }) => {
     const { profile, setProfile } = useContext(Context);
     const history = useHistory();
+
+    const logout = async () => {
+        setProfile(null);
+        await fetch("http://localhost:8000/api/auth/logout",
+            { credentials: "include" });
+        history.push("/")
+    }
 
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-danger">
@@ -12,35 +19,61 @@ const Navbar = () => {
                 Hot Takes
             </h1>
             <button
-                class="navbar-toggler" type="button" data-toggle="collapse"
+                className="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarMain" aria-controls="navbarMain"
                 aria-expanded="false" aria-label="Toggle navigation"
             >
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <div class="navbar-nav">
-                    <Link class="nav-item nav-link" to="/">Home</Link>
-                    <Link class="nav-item nav-link" to="/profile">Profile</Link>
-                </div>
-                <div class="navbar-nav ml-auto">
+            <div className="collapse navbar-collapse" id="navbarMain">
+                <ul className="navbar-nav">
+                    <li>
+                        <NavLink
+                            className="nav-item nav-link"
+                            activeClassName="active" to="/" exact
+                        >
+                            Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className={`nav-item nav-link ${!profile && "disabled"}`}
+                            activeClassName="active" to="/profile"
+                        >
+                            Profile
+                        </NavLink>
+                    </li>
+                    <li className="nav-item dropdown">
+                        <NavLink
+                            className="nav-link dropdown-toggle"
+                            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"
+                            to="/takes" activeClassName="active"
+                        >
+                            Takes
+                        </NavLink>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <Link className="dropdown-item" to="/takes/all">All</Link>
+                            <Link className="dropdown-item" to="/takes/latest">Latest</Link>
+                            <Link className="dropdown-item" to="/takes/hot">Hot</Link>
+                            <Link className="dropdown-item" to="/takes/best">Best</Link>
+                            <Link className="dropdown-item" to="/takes/worst">Worst</Link>
+                        </div>
+                    </li>
+                </ul>
+                <div className="navbar-nav ml-auto">
                     {profile ?
-                    <div
-                        onClick={async () => {
-                            setProfile(null);
-                            await fetch("http://localhost:8000/api/auth/logout",
-                                { credentials: "include" });
-                            history.push("/");
-                        }}
-                        className="nav-item btn btn-warning"
-                    >
+                    <div onClick={logout} className="nav-item btn btn-warning">
                         Logout
-                    </div> :
+                    </div>
+                    :
                     <div
-                        onClick={ () => window.location = "http://localhost:8000/api/auth/twitter" }
+                        onClick={ () =>
+                            window.location = "http://localhost:8000/api/auth/twitter"
+                        }
                         className="nav-item btn btn-warning"
                     >
-                        Login
+                        Login/Register with Twitter
                     </div>}
                 </div>
             </div>

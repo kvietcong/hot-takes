@@ -5,6 +5,7 @@ import Error from "./Routes/Error"
 import Profile from "./Routes/Profile";
 import ContextProvider from "./Context";
 import Navbar from "./Components/Navbar";
+import Takes from "./Routes/Takes";
 
 function App() {
     return (
@@ -13,15 +14,10 @@ function App() {
                 <Navbar />
                 <main className="container-md">
                     <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-                        <Route exact path="/profile">
-                            <Profile />
-                        </Route>
-                        <Route exact path="/error">
-                            <Error />
-                        </Route>
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/profile" component={Profile} />
+                        <Route path="/takes/:type" component={Takes} />
+                        <Route component={Error} />
                     </Switch>
                 </main>
             </Router>

@@ -1,8 +1,6 @@
 import React from "react";
 
 const Info = ({ profile }) => {
-    console.log(profile)
-
     return (
         <section className="mt-5">
             <section className="text-center">
