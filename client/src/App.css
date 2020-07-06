@@ -1,0 +1,8 @@
+.hoverable {
+    transition: transform .1s ease-in-out;
+}
+
+.hoverable:hover {
+    transform: scale(1.05);
+    transition: transform .1s ease-in-out;
+}

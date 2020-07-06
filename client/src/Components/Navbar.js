@@ -7,9 +7,9 @@ const Navbar = ({ selected }) => {
     const history = useHistory();
 
     const logout = async () => {
-        setProfile(null);
         await fetch("http://localhost:8000/api/auth/logout",
             { credentials: "include" });
+        setProfile(null);
         history.push("/")
     }
 
@@ -53,11 +53,17 @@ const Navbar = ({ selected }) => {
                             Takes
                         </NavLink>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <Link className="dropdown-item" to="/takes/all">All</Link>
-                            <Link className="dropdown-item" to="/takes/latest">Latest</Link>
-                            <Link className="dropdown-item" to="/takes/hot">Hot</Link>
-                            <Link className="dropdown-item" to="/takes/best">Best</Link>
-                            <Link className="dropdown-item" to="/takes/worst">Worst</Link>
+                            <Link className="dropdown-item" to="/takes?type=latest">
+                                Latest
+                            </Link>
+                            <Link className="dropdown-item" to="/takes?type=hot">
+                                Hot
+                            </Link>
+                            <Link className="dropdown-item" to="/takes?type=all">
+                                All
+                            </Link>
+                            <div className="dropdown-divider"></div>
+                            <Link className="dropdown-item" to="/takes/create">Create</Link>
                         </div>
                     </li>
                 </ul>

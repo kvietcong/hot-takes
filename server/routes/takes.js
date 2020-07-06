@@ -3,14 +3,58 @@ const { ensureAuth } = require("../custom-middleware/checkAuth");
 const router = express.Router();
 const Take = require("../models/Take");
 
+const TAKES_PER_PAGE = 12;
+
 // Retrieves all the takes
 router.get("/", async (req, res) => {
+    let { type, page } = req.query;
+    if (!(type && page)) {
+        return res.status(400).json({ status: "Missing query parameters" })
+    }
     try {
-        const takes = await Take.find();
-        res.json({
-            status: "Successfully retrieved Takes",
-            takes: takes
-        });
+        page = parseInt(page) - 1;
+        const takes = await Take
+            .find()
+            .sort({ createdAt: type == "all" ? 1 : -1 })
+            .skip(page * TAKES_PER_PAGE)
+            .limit(TAKES_PER_PAGE)
+            .populate("user");
+        if (takes.length > 0) {
+            res.json({
+                status: "Successfully retrieved Takes",
+                takes: takes
+            });
+        } else {
+            res.status(400).json({ status: "Page number out of range" })
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
+// Retrieves current user's takes
+router.get("/me", ensureAuth, async (req, res) => {
+    let { page } = req.query;
+    if (!page) {
+        return res.status(400).json({ status: "Missing query parameters" })
+    }
+    try {
+        page = parseInt(page) - 1;
+        const takes = await Take
+            .find({ user: req.user.id })
+            .sort({ createdAt: -1 })
+            .skip(page * TAKES_PER_PAGE)
+            .limit(TAKES_PER_PAGE)
+            .populate("user");
+        if (takes.length > 0) {
+            res.json({
+                status: "Successfully retrieved Takes",
+                takes: takes
+            });
+        } else {
+            res.status(400).json({ status: "Page number out of range" })
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ status: "Server could not process the request"});

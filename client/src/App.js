@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Routes/Home";
-import Error from "./Routes/Error"
+import Errors from "./Routes/Errors"
 import Profile from "./Routes/Profile";
 import ContextProvider from "./Context";
 import Navbar from "./Components/Navbar";
 import Takes from "./Routes/Takes";
+import TakeAction from "./Routes/TakeAction";
+import "./App.css"
 
 function App() {
     return (
@@ -16,8 +18,9 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/profile" component={Profile} />
-                        <Route path="/takes/:type" component={Takes} />
-                        <Route component={Error} />
+                        <Route exact path="/takes" component={Takes} />
+                        <Route path="/takes/:action" component={TakeAction} />
+                        <Route component={Errors} />
                     </Switch>
                 </main>
             </Router>
