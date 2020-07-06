@@ -9,7 +9,7 @@ const Takes = ({ location }) => {
 
     return (
         <main className="text-center">
-            <h1 className="display-1 mt-5">
+            <h1 className="mt-5">
                 {type.charAt(0).toUpperCase() + type.slice(1)} Takes
             </h1>
             <hr/>

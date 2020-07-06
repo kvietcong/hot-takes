@@ -14,7 +14,7 @@ function App() {
         <ContextProvider>
             <Router>
                 <Navbar />
-                <main className="container-md">
+                <main className="container">
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/profile" component={Profile} />

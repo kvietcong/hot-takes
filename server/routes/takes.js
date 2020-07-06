@@ -78,7 +78,7 @@ router.post("/", async (req, res) => {
 // Returns the information about the take with the given ID
 router.get("/:id", async (req, res) => {
     try {
-        const take = await Take.findOne({ _id: req.params.id });
+        const take = await Take.findOne({ _id: req.params.id }).populate("user");
         if (take) {
             res.json({
                 status: "Successfully Found Take",

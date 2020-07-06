@@ -10,9 +10,9 @@ const Profile = () => {
         <main className="text-center">
             {profile ?
             <Info profile={profile} />:
-            <h2 className="mt-5 display-2 text-center">You are currently a guest</h2>}
+            <h2 className="mt-5 text-center">You are currently a guest</h2>}
             <hr/>
-            <h3 className="display-3 mt-5">Your Takes</h3>
+            <h2 className="mt-5">Your Takes</h2>
             <HotTakeList requestURL="api/takes/me?page=" />
         </main>
     );

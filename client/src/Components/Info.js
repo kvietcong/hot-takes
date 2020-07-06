@@ -4,7 +4,7 @@ const Info = ({ profile }) => {
     return (
         <section className="mt-5">
             <section className="text-center">
-                <h1 className="display-1">
+                <h1>
                     Hello {profile.displayName}
                 </h1>
                 <img

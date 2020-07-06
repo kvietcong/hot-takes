@@ -33,7 +33,7 @@ const HotTakeList = ({ requestURL }) => {
 
     return (
         <section className="mb-5">
-            <section className="row row-cols-3 my-5">
+            <section className="row row-cols-1 row-cols-md-2 row-cols-lg-3 my-5">
                 {takes.map(take =>
                 <div key={take._id} className="col">
                     <HotTakeCard take={take}  />

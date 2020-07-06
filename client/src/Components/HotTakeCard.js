@@ -5,7 +5,7 @@ const HotTakeCard = ({ take }) => {
     return (
         <Link
             className={"card text-white bg-danger my-3 hoverable"}
-            style={{ height: "150px" }} to={`/takes/view/${take._id}`}
+            style={{ height: "150px", overflow: "hidden" }} to={`/takes/view/${take._id}`}
         >
             <div className="card-header d-flex justify-content-between">
                 <span>{take.user.displayName}</span>
@@ -20,6 +20,7 @@ const HotTakeCard = ({ take }) => {
                     <p>{take.body}</p>
                 </div>
             </div>
+            <div className="fadeout"></div>
         </Link>
     );
 };

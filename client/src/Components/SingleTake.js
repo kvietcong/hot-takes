@@ -1,14 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../Context";
 
 const SingleTake = ({ match }) => {
+    const [ take, setTake ] = useState(null);
+    const { profile } = useContext(Context);
+
     const id = match.params.id;
 
     useEffect(() => {
+        const getTake = async () => {
+            try {
+                let response = await fetch(`http://localhost:8000/api/takes/${id}`);
+                if (response.ok) {
+                    setTake((await response.json()).take);
+                } else {
+                    throw new Error((await response.json()).status)
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getTake();
+    }, [id]);
 
-    });
     return (
-        <main>
-            View
+        take &&
+        <main className="text-center mt-5">
+            <h2>{take.title}</h2>
+            <p>Written by {take.user.displayName}</p>
+            <p>{profile && profile._id}</p>
+            <hr/>
+            <section
+                className="container bg-danger my-5 text-white rounded-lg"
+                style={{ minHeight: "500px" }}
+            >
+                <p className="p-4">
+                    {take.body}
+                </p>
+            </section>
         </main>
     );
 };

@@ -4,14 +4,17 @@ const TakeSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        minLength: [1, "Please have a title"],
+        maxlength: [100, "Whoa there, that's too long of a title"]
     },
     body: {
         type: String,
-        required: true
+        required: true,
+        minLength: [1, "Please have a take"]
     },
     categories: {
-        type: Array,
+        type: [String],
         default: []
     },
     likes: {
