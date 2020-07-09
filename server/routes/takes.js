@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
             .skip(page * TAKES_PER_PAGE)
             .limit(TAKES_PER_PAGE)
             .populate("user");
-        if (takes.length > 0) {
+        if (takes.length > 0 || page <= 0) {
             res.json({
                 status: "Successfully retrieved Takes",
                 takes: takes
@@ -47,7 +47,7 @@ router.get("/me", ensureAuth, async (req, res) => {
             .skip(page * TAKES_PER_PAGE)
             .limit(TAKES_PER_PAGE)
             .populate("user");
-        if (takes.length > 0) {
+        if (takes.length > 0 || page <= 0) {
             res.json({
                 status: "Successfully retrieved Takes",
                 takes: takes
@@ -63,6 +63,7 @@ router.get("/me", ensureAuth, async (req, res) => {
 
 // Creates a new take
 router.post("/", async (req, res) => {
+    console.log(req.body)
     try {
         const newTake = await Take.create(req.body);
         res.json({

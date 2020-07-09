@@ -11,13 +11,12 @@ const HotTakeCard = ({ take }) => {
                 <span>{take.user.displayName}</span>
                 <span className="ml-auto">
                     {take.likes} <i className="fab fa-hotjar mr-2"></i>
-                    {take.dislikes} <i className="fas fa-snowflake"></i>
                 </span>
             </div>
             <div className="card-body">
                 <div className="card-text text-left">
                     <h6>{take.title}</h6>
-                    {take.body}
+                    <div dangerouslySetInnerHTML={{ __html: take.body }} />
                 </div>
             </div>
             <div className="fadeout"></div>
