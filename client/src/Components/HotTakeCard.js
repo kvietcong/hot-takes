@@ -17,7 +17,7 @@ const HotTakeCard = ({ take }) => {
             <div className="card-body">
                 <div className="card-text text-left">
                     <h6>{take.title}</h6>
-                    <p>{take.body}</p>
+                    {take.body}
                 </div>
             </div>
             <div className="fadeout"></div>

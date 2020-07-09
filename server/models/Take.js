@@ -11,7 +11,11 @@ const TakeSchema = new mongoose.Schema({
     body: {
         type: String,
         required: true,
-        minLength: [1, "Please have a take"]
+        /*
+            Min length is 8 b/c that is lowest amount of characters to have a valid take w/ HTML
+            i.e. "<p>*</p>"
+        */
+        minLength: [7, "Please have a take"]
     },
     categories: {
         type: [String],

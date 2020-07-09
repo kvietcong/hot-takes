@@ -31,12 +31,10 @@ const SingleTake = ({ match }) => {
             <p>{profile && profile._id}</p>
             <hr/>
             <section
-                className="container bg-danger my-5 text-white rounded-lg"
+                className="container bg-danger my-5 text-white rounded-lg p-4"
                 style={{ minHeight: "500px" }}
             >
-                <p className="p-4">
-                    {take.body}
-                </p>
+                {take.body}
             </section>
         </main>
     );
