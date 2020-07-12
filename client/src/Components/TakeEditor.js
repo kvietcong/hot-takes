@@ -30,7 +30,7 @@ const TakeEditor = ({ match }) => {
                 })
             });
             if (response.ok) {
-                console.log("Successfully added take!");
+                console.log("Successfully edited take!");
                 console.log((await response.json()).take);
                 history.push("/takes?type=latest");
             } else {
