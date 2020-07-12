@@ -16,6 +16,7 @@ const HotTakeCard = ({ take }) => {
             <div className="card-body">
                 <div className="card-text text-left">
                     <h6>{take.title}</h6>
+                    <hr/>
                     <div dangerouslySetInnerHTML={{ __html: take.body }} />
                 </div>
             </div>

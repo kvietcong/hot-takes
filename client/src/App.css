@@ -10,10 +10,23 @@
 .fadeout {
     position: relative;
     height: 100%;
+    bottom: -5px;
     background-image: linear-gradient(
         rgba(255, 255, 255, 0) 0%,
         rgba(220, 53, 69, 1) 100%
     );
+}
+
+.card-text > div > h1 {
+    font-size: 2rem;
+}
+
+.card-text > div > h2 {
+    font-size: 1.8rem;
+}
+
+.card-text > div > h3 {
+    font-size: 1.5rem;
 }
 
 h1 {

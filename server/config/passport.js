@@ -18,7 +18,6 @@ module.exports = passport => {
                 profileImage: profileImage,
                 biography: description
             }
-            console.log(requestUser);
             try {
                 let user = await User.findOne({ twitterID: requestUser.twitterID });
                 if (!user) {

@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
         page = parseInt(page) - 1;
         const takes = await Take
             .find()
-            .sort({ createdAt: type == "all" ? 1 : -1 })
+            .sort({ createdAt: type === "all" ? 1 : -1 })
             .skip(page * TAKES_PER_PAGE)
             .limit(TAKES_PER_PAGE)
             .populate("user");
@@ -62,14 +62,19 @@ router.get("/me", ensureAuth, async (req, res) => {
 });
 
 // Creates a new take
-router.post("/", async (req, res) => {
-    console.log(req.body)
+router.post("/", ensureAuth, async (req, res) => {
     try {
-        const newTake = await Take.create(req.body);
-        res.json({
-            status: "Successfully Added Take",
-            take: newTake
-        });
+        if (req.user.id === req.body.user) {
+            const newTake = await Take.create(req.body);
+            res.json({
+                status: "Successfully Added Take",
+                take: newTake
+            });
+        } else {
+            res.status(400).json({
+                status: "You are not the user you say you are"
+            });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ status: "Server could not process the request"});
@@ -95,8 +100,13 @@ router.get("/:id", async (req, res) => {
 });
 
 // Edits the information about the take with the given ID
-router.put("/:id", async (req, res) => {
+router.put("/:id", ensureAuth, async (req, res) => {
     try {
+        if (req.user.id !== req.body.user) {
+            return res.status(400).json({
+                status: "You are not the user you say you are"
+            });
+        }
         const take = await Take.findOneAndUpdate({ _id: req.params.id }, req.body, {
             new: true,
             runValidators: true
@@ -116,7 +126,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Deletes the take with the given ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", ensureAuth, async (req, res) => {
     try {
         const take = await Take.deleteOne({ _id: req.params.id });
         if (take) {

@@ -1,22 +1,23 @@
-import React, { useState, useContext } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { Context } from "../Context";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { Context } from "../Context";
+import ReactQuill from "react-quill";
 
-const TakeCreator = () => {
+const TakeEditor = ({ match }) => {
     const [ tags, setTags ] = useState("#");
     const [ body, setBody ] = useState("");
     const [ title, setTitle ] = useState("");
+    const [ take, setTake ] = useState(null);
     const { profile } = useContext(Context);
 
+    const id = match.params.id;
     const history = useHistory();
 
-    const submitTake = async (submission) => {
+    const editTake = async (submission) => {
         submission.preventDefault();
         try {
-            const response = await fetch("http://localhost:8000/api/takes", {
-                method: "POST",
+            const response = await fetch(`http://localhost:8000/api/takes/${id}`, {
+                method: "PUT",
                 credentials: "include",
                 headers: {
                   "Content-Type": "application/json"
@@ -29,7 +30,7 @@ const TakeCreator = () => {
                 })
             });
             if (response.ok) {
-                console.log("Successfully updated take!");
+                console.log("Successfully added take!");
                 console.log((await response.json()).take);
                 history.push("/takes?type=latest");
             } else {
@@ -48,11 +49,37 @@ const TakeCreator = () => {
             .map(tag => tag.trim().split(/\s*/).join(""));
     }
 
+    useEffect(() => {
+        const getTake = async () => {
+            try {
+                let response = await fetch(`http://localhost:8000/api/takes/${id}`);
+                if (response.ok) {
+                    response = (await response.json()).take;
+                    setTake(response);
+                } else {
+                    throw new Error((await response.json()).status)
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getTake();
+    }, [id, profile]);
+
+    useEffect(() => {
+        if (take) {
+            setBody(take.body);
+            setTitle(take.title);
+            setTags("#" + take.categories.join(" #"));
+        }
+    }, [take]);
+
     return (
-        <main className="text-center mt-5">
-            <h1>Create a take</h1>
+        <main className="text-center">
+            <h1>Edit Take</h1>
             <hr/>
-            <form onSubmit={submitTake} className="my-4" autoComplete="off">
+            {take ?
+            <form onSubmit={editTake} className="my-4" autoComplete="off">
                 <div className="form-group">
                     <h3>
                         <label htmlFor="title">Title</label>
@@ -84,9 +111,10 @@ const TakeCreator = () => {
                     />
                 </div>
                 <input type="submit" value="Create Take" className="form-control"/>
-            </form>
+            </form> :
+            <h3>Loading...</h3>}
         </main>
     );
 };
 
-export default TakeCreator;
+export default TakeEditor;

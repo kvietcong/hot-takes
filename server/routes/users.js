@@ -2,6 +2,7 @@ const express = require("express");
 const { ensureAuth } = require("../custom-middleware/checkAuth");
 const router = express.Router();
 const User = require("../models/User");
+const Take = require("../models/Take");
 
 // Returns the currently logged on user
 router.get("/me", ensureAuth, async (req, res) => {
@@ -20,6 +21,11 @@ router.put("/me", ensureAuth, async (req, res) => {
             new: true,
             runValidators: true
         });
+        if (req.body.hasOwnProperty("extras")) {
+            await Take.findByIdAndUpdate({ _id: req.body.extras.id },
+                { $inc : { likes: req.body.extras.score } }
+            );
+        }
         if (user) {
             res.json({
                 status: "Successfully Updated User",
