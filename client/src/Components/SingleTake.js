@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../Context";
 import { useHistory } from "react-router-dom";
+import { NotificationManager } from "react-notifications";
 
 const SingleTake = ({ match }) => {
     const { profile, updateProfile } = useContext(Context);
@@ -24,7 +25,8 @@ const SingleTake = ({ match }) => {
             );
             setIsLoading(true);
         } else {
-            console.log("not logged in");
+            console.log("Please log in to like this take")
+            NotificationManager.error("Please log in to like this take");
         }
     }
 
@@ -41,7 +43,8 @@ const SingleTake = ({ match }) => {
                 throw new Error((await response.json()).status)
             }
         } catch (error) {
-            console.error(error);
+            console.log(error)
+            NotificationManager.error(error);
         }
     }
 
@@ -56,7 +59,8 @@ const SingleTake = ({ match }) => {
                     throw new Error((await response.json()).status)
                 }
             } catch (error) {
-                console.error(error);
+                console.log(error)
+                NotificationManager.error(error);
             }
         }
         getTake();

@@ -61,6 +61,34 @@ router.get("/me", ensureAuth, async (req, res) => {
     }
 });
 
+// Retrieves current user's likes
+router.get("/me/likes", ensureAuth, async (req, res) => {
+    let { page } = req.query;
+    if (!page) {
+        return res.status(400).json({ status: "Missing query parameters" })
+    }
+    try {
+        page = parseInt(page) - 1;
+        const takes = await Take
+            .find({ _id: { $in: req.user.likes }})
+            .sort({ createdAt: -1 })
+            .skip(page * TAKES_PER_PAGE)
+            .limit(TAKES_PER_PAGE)
+            .populate("user");
+        if (takes.length > 0 || page <= 0) {
+            res.json({
+                status: "Successfully retrieved Takes",
+                takes: takes
+            });
+        } else {
+            res.status(400).json({ status: "Page number out of range" })
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
 // Creates a new take
 router.post("/", ensureAuth, async (req, res) => {
     try {

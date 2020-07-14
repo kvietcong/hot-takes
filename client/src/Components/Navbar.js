@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, useHistory, NavLink } from "react-router-dom";
 import { Context } from "../Context";
 
-const Navbar = ({ selected }) => {
+const Navbar = () => {
     const { profile, setProfile } = useContext(Context);
     const history = useHistory();
 

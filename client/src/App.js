@@ -1,13 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Routes/Home";
+import Takes from "./Routes/Takes";
 import Errors from "./Routes/Errors"
 import Profile from "./Routes/Profile";
 import ContextProvider from "./Context";
 import Navbar from "./Components/Navbar";
-import Takes from "./Routes/Takes";
 import TakeAction from "./Routes/TakeAction";
+import { NotificationContainer } from "react-notifications";
 import "./App.css"
+import "react-notifications/lib/notifications.css";
 
 function App() {
     return (
@@ -24,6 +26,7 @@ function App() {
                     </Switch>
                 </main>
             </Router>
+            <NotificationContainer/>
         </ContextProvider>
     );
 };

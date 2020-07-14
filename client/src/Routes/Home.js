@@ -13,7 +13,7 @@ const Home = () => {
                 <h2 className="mt-3">About the Site</h2>
                 <p>
                     Hot Takes is a website where you can post your Hot Takes and share them on
-                    Twitter.
+                    Twitter (soon tm).
                 </p>
             </section>
         </main>

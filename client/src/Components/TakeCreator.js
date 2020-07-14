@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Context } from "../Context";
 import { useHistory } from "react-router-dom";
+import { NotificationManager } from "react-notifications";
 
 const TakeCreator = () => {
     const [ tags, setTags ] = useState("#");
@@ -29,14 +30,16 @@ const TakeCreator = () => {
                 })
             });
             if (response.ok) {
-                console.log("Successfully updated take!");
+                console.log("Successfully added take!");
+                NotificationManager.success("Successfully added take!");
                 console.log((await response.json()).take);
                 history.push("/takes?type=latest");
             } else {
                 throw new Error(await (response.json()).status)
             }
         } catch (error) {
-            console.error(error);
+            console.log(error)
+            NotificationManager.error(error);
         }
     }
 
@@ -46,7 +49,11 @@ const TakeCreator = () => {
             .splice(1)
             .filter(tag => tag !== "")
             .map(tag => tag.trim().split(/\s*/).join(""));
-    }
+    };
+
+    useEffect(() => {
+        !profile && history.push("/error?errorMessage=Unauthorized&errorCode=403");
+    }, [history, profile]);
 
     return (
         <main className="text-center mt-5">

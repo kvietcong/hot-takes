@@ -17,12 +17,12 @@ const ContextProvider = (props) => {
                     body: JSON.stringify(information)
                 });
             if (!response.ok) {
-                console.log("Error in setting acount");
+                console.log("Error in setting account")
             } else {
                 setProfile((await response.json()).user);
             }
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     };
 
@@ -32,12 +32,12 @@ const ContextProvider = (props) => {
                 const response =
                     await fetch("http://localhost:8000/api/users/me", { credentials: "include" });
                 if (!response.ok) {
-                    console.log("Could not find an exisiting account session");
+                    console.log("Could not find an existing account session")
                 } else {
                     setProfile(await response.json());
                 }
             } catch (error) {
-                console.error(error);
+                console.log(error)
             }
         }
 

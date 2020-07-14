@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Context } from "../Context";
 import ReactQuill from "react-quill";
+import { NotificationManager } from "react-notifications";
 
 const TakeEditor = ({ match }) => {
     const [ tags, setTags ] = useState("#");
@@ -31,15 +32,17 @@ const TakeEditor = ({ match }) => {
             });
             if (response.ok) {
                 console.log("Successfully edited take!");
+                NotificationManager.success("Successfully edited take!");
                 console.log((await response.json()).take);
                 history.push("/takes?type=latest");
             } else {
                 throw new Error(await (response.json()).status)
             }
         } catch (error) {
-            console.error(error);
+            console.log(error)
+            NotificationManager.error(error);
         }
-    }
+    };
 
     const parseTags = () => {
         return tags
@@ -47,7 +50,7 @@ const TakeEditor = ({ match }) => {
             .splice(1)
             .filter(tag => tag !== "")
             .map(tag => tag.trim().split(/\s*/).join(""));
-    }
+    };
 
     useEffect(() => {
         const getTake = async () => {
@@ -60,7 +63,8 @@ const TakeEditor = ({ match }) => {
                     throw new Error((await response.json()).status)
                 }
             } catch (error) {
-                console.error(error);
+                console.log(error)
+                NotificationManager.error(error);
             }
         }
         getTake();
@@ -73,6 +77,10 @@ const TakeEditor = ({ match }) => {
             setTags("#" + take.categories.join(" #"));
         }
     }, [take]);
+
+    useEffect(() => {
+        !profile && history.push("/error?errorMessage=Unauthorized&errorCode=403");
+    }, [history, profile]);
 
     return (
         <main className="text-center">
@@ -110,7 +118,7 @@ const TakeEditor = ({ match }) => {
                         onChange={event => setTags(event.target.value)}
                     />
                 </div>
-                <input type="submit" value="Create Take" className="form-control"/>
+                <input type="submit" value="Edit Take" className="form-control"/>
             </form> :
             <h3>Loading...</h3>}
         </main>
