@@ -6,7 +6,7 @@ const TakeSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minLength: [1, "Please have a title"],
-        maxlength: [100, "Whoa there, that's too long of a title"]
+        maxLength: [100, "Whoa there, that's too long of a title"]
     },
     body: {
         type: String,
@@ -22,10 +22,6 @@ const TakeSchema = new mongoose.Schema({
         default: []
     },
     likes: {
-        type: Number,
-        default: 0
-    },
-    dislikes: {
         type: Number,
         default: 0
     },

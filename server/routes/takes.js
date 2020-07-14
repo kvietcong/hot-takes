@@ -13,16 +13,20 @@ router.get("/", async (req, res) => {
     }
     try {
         page = parseInt(page) - 1;
-        const takes = await Take
+        const takes = Take
             .find()
-            .sort({ createdAt: type === "all" ? 1 : -1 })
             .skip(page * TAKES_PER_PAGE)
             .limit(TAKES_PER_PAGE)
             .populate("user");
+        if (type == "hot") {
+            takes.sort({ likes: -1 });
+        } else {
+            takes.sort({ createdAt: type === "all" ? 1 : -1 });
+        }
         if (takes.length > 0 || page <= 0) {
             res.json({
                 status: "Successfully retrieved Takes",
-                takes: takes
+                takes: await takes
             });
         } else {
             res.status(400).json({ status: "Page number out of range" })
