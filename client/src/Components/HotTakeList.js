@@ -14,7 +14,7 @@ const HotTakeList = ({ requestURL }) => {
             try {
                 setIsLoading(true);
                 let response =
-                    await fetch("http://localhost:8000/" + requestURL + page,
+                    await fetch("/" + requestURL + page,
                         { credentials: "include"});
                 if (response.ok) {
                     setTakes((await response.json()).takes);

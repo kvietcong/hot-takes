@@ -28,11 +28,11 @@ const SingleTake = ({ match }) => {
             console.log("Please log in to like this take")
             NotificationManager.error("Please log in to like this take");
         }
-    }
+    };
 
     const deleteTake = async () => {
         try {
-            let response = await fetch(`http://localhost:8000/api/takes/${id}`, {
+            let response = await fetch(`/api/takes/${id}`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -46,12 +46,36 @@ const SingleTake = ({ match }) => {
             console.log(error)
             NotificationManager.error(error);
         }
-    }
+    };
+
+    const shareTake = async () => {
+        try {
+            let response = await fetch(`/api/share/${id}`, {
+                method: "POST",
+                credentials: "include"
+            });
+            if (response.ok) {
+                const message = (await response.json()).status;
+                console.log(message);
+                NotificationManager.success(message);
+                history.push("/");
+            } else {
+                throw new Error((await response.json()).status)
+            }
+        } catch (error) {
+            console.log(error)
+            NotificationManager.error(error);
+        }
+    };
+
+    const checkIfValid = () => {
+        return profile && take && profile._id === take.user._id;
+    };
 
     useEffect(() => {
         const getTake = async () => {
             try {
-                let response = await fetch(`http://localhost:8000/api/takes/${id}`);
+                let response = await fetch(`/api/takes/${id}`);
                 if (response.ok) {
                     response = (await response.json()).take;
                     setTake(response);
@@ -77,7 +101,7 @@ const SingleTake = ({ match }) => {
             <p>Written by {take.user.displayName}</p>
             <div>
                 {
-                profile && take && profile._id === take.user._id &&
+                checkIfValid() &&
                 <button className="btn btn-info" onClick={() => history.push(`/takes/edit/${id}`)}>
                     Edit Take <i className="fas fa-edit ml-1"></i>
                 </button>
@@ -95,16 +119,28 @@ const SingleTake = ({ match }) => {
                     {take.likes} <i className="fab fa-hotjar"></i>
                 </button>
                 {
-                profile && take && profile._id === take.user._id &&
+                checkIfValid() &&
                 <button className="btn btn-danger" onClick={deleteTake}>
                     Delete Take <i className="fas fa-trash ml-1"></i>
                 </button>
                 }
             </div>
+            {
+            take && profile &&
+            <div className="my-2">
+                <button
+                    className="btn"
+                    style={{ backgroundColor: "#1DA1F2", borderColor: "#1DA1F2", color: "#fff" }}
+                    onClick={shareTake}
+                >
+                    Share Take <i className="fab fa-twitter ml-1"></i>
+                </button>
+            </div>
+            }
             <hr/>
             <section
                 className="container bg-danger my-5 text-white rounded-lg p-4"
-                style={{ minHeight: "500px" }}
+                style={{ minHeight: "500px", overflow: "auto" }}
                 dangerouslySetInnerHTML={{ __html: take.body }}
             />
         </main>

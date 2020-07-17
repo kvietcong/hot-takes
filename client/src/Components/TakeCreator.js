@@ -16,7 +16,7 @@ const TakeCreator = () => {
     const submitTake = async (submission) => {
         submission.preventDefault();
         try {
-            const response = await fetch("http://localhost:8000/api/takes", {
+            const response = await fetch("/api/takes", {
                 method: "POST",
                 credentials: "include",
                 headers: {

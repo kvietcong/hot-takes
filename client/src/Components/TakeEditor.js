@@ -17,7 +17,7 @@ const TakeEditor = ({ match }) => {
     const editTake = async (submission) => {
         submission.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8000/api/takes/${id}`, {
+            const response = await fetch(`/api/takes/${id}`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
@@ -55,7 +55,7 @@ const TakeEditor = ({ match }) => {
     useEffect(() => {
         const getTake = async () => {
             try {
-                let response = await fetch(`http://localhost:8000/api/takes/${id}`);
+                let response = await fetch(`/api/takes/${id}`);
                 if (response.ok) {
                     response = (await response.json()).take;
                     setTake(response);

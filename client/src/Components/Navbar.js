@@ -7,7 +7,7 @@ const Navbar = () => {
     const history = useHistory();
 
     const logout = async () => {
-        await fetch("http://localhost:8000/api/auth/logout",
+        await fetch("/api/auth/logout",
             { credentials: "include" });
         setProfile(null);
         history.push("/")
@@ -75,7 +75,7 @@ const Navbar = () => {
                     :
                     <div
                         onClick={ () =>
-                            window.location = "http://localhost:8000/api/auth/twitter"
+                            window.location = "/api/auth/twitter"
                         }
                         className="nav-item btn btn-warning"
                     >

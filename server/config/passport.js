@@ -6,7 +6,8 @@ module.exports = passport => {
     passport.use(new TwitterStrategy({
             consumerKey: process.env.TWITTER_CONSUMER_KEY,
             consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-            callbackURL: "/api/auth/twitter/callback"
+            callbackURL: (process.env.DEV ? "http://localhost:8000" :
+                "https://le-hot-takes.herokuapp.com") + "/api/auth/twitter/callback"
         },
         async (token, tokenSecret, profile, done) => {
             const { id, name, description, profile_image_url: profileImage, screen_name: handle } =
@@ -16,7 +17,9 @@ module.exports = passport => {
                 twitterHandle: handle,
                 displayName: name,
                 profileImage: profileImage,
-                biography: description
+                biography: description,
+                token: token,
+                tokenSecret: tokenSecret
             }
             try {
                 let user = await User.findOne({ twitterID: requestUser.twitterID });

@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "cd server/ && node app.js",
+    "dev": "cd server/ && env DEV=true nodemon app",
+    "build": "cd client/ && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,8 @@
     "mongoose": "^5.9.22",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4"
+    "passport-twitter": "^1.0.4",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

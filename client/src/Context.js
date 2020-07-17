@@ -8,7 +8,7 @@ const ContextProvider = (props) => {
     const updateProfile = async (information) => {
         try {
             const response =
-                await fetch("http://localhost:8000/api/users/me", {
+                await fetch("/api/users/me", {
                     method: "PUT",
                     credentials: "include",
                     headers: {
@@ -30,7 +30,7 @@ const ContextProvider = (props) => {
         const getProfile = async () => {
             try {
                 const response =
-                    await fetch("http://localhost:8000/api/users/me", { credentials: "include" });
+                    await fetch("/api/users/me", { credentials: "include" });
                 if (!response.ok) {
                     console.log("Could not find an existing account session")
                 } else {

@@ -8,8 +8,8 @@ router.get("/twitter", passport.authenticate("twitter"));
 // Redirects user depending on success of the authentication
 router.get("/twitter/callback",
     passport.authenticate("twitter", {
-        successRedirect: `${process.env.CLIENT_URL}/profile`,
-        failureRedirect: `${process.env.CLIENT_URL}/error`
+        successRedirect: "/profile",
+        failureRedirect: "/error"
     })
 );
 
