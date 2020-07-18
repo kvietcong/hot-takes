@@ -1,6 +1,6 @@
 # Hot Takes
 
-It is live in the following link! https://le-hot-takes.herokuapp.com/
+It is live at the following link! https://le-hot-takes.herokuapp.com/
 
 ## About
 
