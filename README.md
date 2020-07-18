@@ -44,9 +44,9 @@ about Web Development in this project.
 That being said, I'm done with this XD. I didn't really plan how the site would
 work in the beginning and didn't really know "best practices" when creating this
 site. I made this site from a random idea I had and the little knowledge I gained
-from a few YouTube videos. The site is very unsound architecturally and not
-scalable in the slightest. I will be moving on with the many lessons I learned
-from this experience. o/
+from a few YouTube videos. The site is very unsound architecturally, not scalable
+in the slightest, and stylistically horrendous in places. I will be moving on with
+the many lessons I learned from this experience. o/
 
 ## References/Helpful Websites
 
