@@ -39,7 +39,7 @@ underlying video/tutorial that lays out a planned site. It was fun to make, and
 I learned A LOT about Website security and user data. Making an authentication and
 authorization system was a lot harder than I expected but it taught me a lot about
 how browsers and request actually work. I really learned a lot about everything
-about Web Development in this project.
+within Web Development while working on this project.
 
 That being said, I'm done with this XD. I didn't really plan how the site would
 work in the beginning and didn't really know "best practices" when creating this
