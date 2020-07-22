@@ -38,7 +38,7 @@ This was my first website that I built using the MERN stack and without a clear
 underlying video/tutorial that lays out a planned site. It was fun to make, and
 I learned A LOT about Website security and user data. Making an authentication and
 authorization system was a lot harder than I expected but it taught me a lot about
-how browsers and request actually work. I really learned a lot about everything
+how browsers and requests actually work. I really learned a lot about everything
 within Web Development while working on this project.
 
 That being said, I'm done with this XD. I didn't really plan how the site would
